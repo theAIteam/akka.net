@@ -11,6 +11,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using Akka.Remote;
 using Akka.Util.Internal;
+using Akka.Util;
 
 namespace Akka.Cluster
 {
@@ -503,6 +504,7 @@ namespace Akka.Cluster
     /// the node with same host:port. The `uid` in the `UniqueAddress` is
     /// different in that case.
     /// </summary>
+    [InteropManifest("akka.cluster.GossipEnvelope")]
     class GossipEnvelope : IClusterMessage
     {
         //TODO: Serialization?
@@ -545,12 +547,13 @@ namespace Akka.Cluster
         public Deadline Deadline { get; set; }
     }
 
-    /// <summary>
-    /// When there are no known changes to the node ring a `GossipStatus`
-    /// initiates a gossip chat between two members. If the receiver has a newer
-    /// version it replies with a `GossipEnvelope`. If receiver has older version
-    /// it replies with its `GossipStatus`. Same versions ends the chat immediately.
-    /// </summary>
+  /// <summary>
+  /// When there are no known changes to the node ring a `GossipStatus`
+  /// initiates a gossip chat between two members. If the receiver has a newer
+  /// version it replies with a `GossipEnvelope`. If receiver has older version
+  /// it replies with its `GossipStatus`. Same versions ends the chat immediately.
+  /// </summary>
+  [InteropManifest("akka.cluster.GossipStatus")]
     class GossipStatus : IClusterMessage
     {
         readonly UniqueAddress _from;

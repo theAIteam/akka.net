@@ -101,10 +101,11 @@ namespace Akka.Cluster
             }
         }
 
-        /// <summary>
-        /// Command to leave the cluster.
-        /// </summary>
-        internal sealed class Leave : BaseClusterUserAction, IClusterMessage
+    /// <summary>
+    /// Command to leave the cluster.
+    /// </summary>
+    [InteropManifest("akka.cluster.ClusterUserAction$Leave")]
+    internal sealed class Leave : BaseClusterUserAction, IClusterMessage
         {
             /// <summary>
             /// TBD
@@ -115,10 +116,11 @@ namespace Akka.Cluster
             { }
         }
 
-        /// <summary>
-        /// Command to mark node as temporary down.
-        /// </summary>
-        internal sealed class Down : BaseClusterUserAction, IClusterMessage
+    /// <summary>
+    /// Command to mark node as temporary down.
+    /// </summary>
+    [InteropManifest("akka.cluster.ClusterUserAction$Down")]
+    internal sealed class Down : BaseClusterUserAction, IClusterMessage
         {
             /// <summary>
             /// TBD
@@ -136,10 +138,11 @@ namespace Akka.Cluster
     /// </summary>
     internal sealed class InternalClusterAction
     {
-        /// <summary>
-        /// TBD
-        /// </summary>
-        internal sealed class Join : IClusterMessage
+    /// <summary>
+    /// TBD
+    /// </summary>
+    [InteropManifest("akka.cluster.InternalClusterAction$Join")]
+    internal sealed class Join : IClusterMessage
         {
             readonly UniqueAddress _node;
             readonly ImmutableHashSet<string> _roles;
@@ -204,9 +207,11 @@ namespace Akka.Cluster
             }
         }
 
-        /// <summary>
-        /// Reply to Join
-        /// </summary>
+    /// <summary>
+    /// Reply to Join
+    /// </summary>
+    
+      [InteropManifest("akka.cluster.InternalClusterAction$Welcome")]
         internal sealed class Welcome : IClusterMessage
         {
             readonly UniqueAddress _from;
@@ -264,11 +269,12 @@ namespace Akka.Cluster
 
         }
 
-        /// <summary>
-        /// Command to initiate the process to join the specified
-        /// seed nodes.
-        /// </summary>
-        internal sealed class JoinSeedNodes : IDeadLetterSuppression
+    /// <summary>
+    /// Command to initiate the process to join the specified
+    /// seed nodes.
+    /// </summary>
+    [InteropManifest("akka.cluster.InternalClusterAction$JoinSeedNodes")]
+    internal sealed class JoinSeedNodes : IDeadLetterSuppression
         {
             readonly ImmutableList<Address> _seedNodes;
 
@@ -290,19 +296,22 @@ namespace Akka.Cluster
             }
         }
 
-        /// <summary>
-        /// Start message of the process to join one of the seed nodes.
-        /// The node sends <see cref="InitJoin"/> to all seed nodes, which replies
-        /// with <see cref="InitJoinAck"/>. The first reply is used others are discarded.
-        /// The node sends <see cref="Join"/> command to the seed node that replied first.
-        /// If a node is uninitialized it will reply to `InitJoin` with
-        /// <see cref="InitJoinNack"/>.
-        /// </summary>
-        internal class JoinSeenNode
+    /// <summary>
+    /// Start message of the process to join one of the seed nodes.
+    /// The node sends <see cref="InitJoin"/> to all seed nodes, which replies
+    /// with <see cref="InitJoinAck"/>. The first reply is used others are discarded.
+    /// The node sends <see cref="Join"/> command to the seed node that replied first.
+    /// If a node is uninitialized it will reply to `InitJoin` with
+    /// <see cref="InitJoinNack"/>.
+    /// </summary>
+    [InteropManifest("akka.cluster.InternalClusterAction$JoinSeedNode")]
+    internal class JoinSeenNode
         {
         }
 
-        /// <inheritdoc cref="JoinSeenNode"/>
+    //TODO: Drew Move the manifest name to a constant.
+    /// <inheritdoc cref="JoinSeenNode"/>
+        [InteropManifest("akka.cluster.InternalClusterAction$InitJoin$")]
         internal class InitJoin : IClusterMessage, IDeadLetterSuppression
         {
             /// <summary>
@@ -316,8 +325,9 @@ namespace Akka.Cluster
             }
         }
 
-        /// <inheritdoc cref="JoinSeenNode"/>
-        internal sealed class InitJoinAck : IClusterMessage, IDeadLetterSuppression
+    /// <inheritdoc cref="JoinSeenNode"/>
+    [InteropManifest("akka.cluster.InternalClusterAction$InitJoinAck")]
+    internal sealed class InitJoinAck : IClusterMessage, IDeadLetterSuppression
         {
             readonly Address _address;
 
@@ -359,8 +369,9 @@ namespace Akka.Cluster
             }
         }
 
-        /// <inheritdoc cref="JoinSeenNode"/>
-        internal sealed class InitJoinNack : IClusterMessage, IDeadLetterSuppression
+    /// <inheritdoc cref="JoinSeenNode"/>
+    [InteropManifest("akka.cluster.InternalClusterAction$InitJoinNack")]
+    internal sealed class InitJoinNack : IClusterMessage, IDeadLetterSuppression
         {
             readonly Address _address;
 
@@ -408,10 +419,11 @@ namespace Akka.Cluster
             }
         }
 
-        /// <summary>
-        /// Signals that a member is confirmed to be exiting the cluster
-        /// </summary>
-        internal sealed class ExitingConfirmed : IClusterMessage, IDeadLetterSuppression
+    /// <summary>
+    /// Signals that a member is confirmed to be exiting the cluster
+    /// </summary>
+    [InteropManifest("akka.cluster.InternalClusterAction$ExitingConfirmed")]
+    internal sealed class ExitingConfirmed : IClusterMessage, IDeadLetterSuppression
         {
             public ExitingConfirmed(UniqueAddress address)
             {

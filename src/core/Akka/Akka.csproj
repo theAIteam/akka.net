@@ -290,6 +290,7 @@
     <Compile Include="Util\Internal\StringBuilderExtensions.cs" />
     <Compile Include="Util\Internal\TaskEx.cs" />
     <Compile Include="Util\Internal\TaskExtensions.cs" />
+    <Compile Include="Util\InteropManifest.cs" />
     <Compile Include="Util\ISurrogate.cs" />
     <Compile Include="Util\MatchHandler\PartialHandlerArgumentsCapture.cs">
       <AutoGen>True</AutoGen>

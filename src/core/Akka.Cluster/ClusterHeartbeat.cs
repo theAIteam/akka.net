@@ -13,6 +13,7 @@ using Akka.Actor;
 using Akka.Event;
 using Akka.Remote;
 using Akka.Util.Internal;
+using Akka.Util;
 
 namespace Akka.Cluster
 {
@@ -221,12 +222,13 @@ namespace Akka.Cluster
             }
         }
 
-        #region Messaging classes
+    #region Messaging classes
 
-        /// <summary>
-        /// Sent at regular intervals for failure detection
-        /// </summary>
-        internal sealed class Heartbeat : IClusterMessage, IPriorityMessage, IDeadLetterSuppression
+    /// <summary>
+    /// Sent at regular intervals for failure detection
+    /// </summary>
+    [InteropManifest("akka.cluster.ClusterHeartbeatSender$Heartbeat")]
+    internal sealed class Heartbeat : IClusterMessage, IPriorityMessage, IDeadLetterSuppression
         {
             /// <summary>
             /// TBD
@@ -262,10 +264,11 @@ namespace Akka.Cluster
             }
         }
 
-        /// <summary>
-        /// Sends replies to <see cref="Heartbeat"/> messages
-        /// </summary>
-        internal sealed class HeartbeatRsp : IClusterMessage, IPriorityMessage, IDeadLetterSuppression
+    /// <summary>
+    /// Sends replies to <see cref="Heartbeat"/> messages
+    /// </summary>
+    [InteropManifest("akka.cluster.ClusterHeartbeatSender$HeartbeatRsp")]
+    internal sealed class HeartbeatRsp : IClusterMessage, IPriorityMessage, IDeadLetterSuppression
         {
             /// <summary>
             /// TBD
